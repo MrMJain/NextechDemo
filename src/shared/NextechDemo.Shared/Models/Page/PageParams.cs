@@ -1,4 +1,6 @@
-﻿namespace NextechDemo.Shared.Models
+﻿using System.ComponentModel;
+
+namespace NextechDemo.Shared.Models
 {
     /// <summary>
     /// Send page no and page size in query string of request
@@ -13,7 +15,11 @@
         /// Current page number, set to 1 as default
         /// </summary>
         public int PageNumber { get; set; } = 1;
-        public string Search {  get; set; }                                                                                     
+        /// <summary>
+        /// Search string
+        /// </summary>
+        [DefaultValue("")]
+        public string Search { get; set; } = string.Empty;                                                                                     
         /// <summary>
         /// No of records per page, set to 10 as default
         /// </summary>
@@ -29,6 +35,7 @@
         /// <summary>
         /// Flag to check if full data set required
         /// </summary>
-        public bool IsFullDataRequired { get; set; }
+        [DefaultValue(false)]
+        public bool IsFullDataRequired { get; set; } = false;
     }
 }

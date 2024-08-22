@@ -17,6 +17,10 @@ namespace NextechDemo.Application.Helper
         /// <returns cref = "Response{T}"> Page result set with page info</returns>
         public static async Task<Response<List<T>>> ToPageResult<T>(this List<T> query, PageParams pageParams) where T : class
         {
+            if(!string.IsNullOrEmpty(pageParams.Search))
+            {
+                pageParams.PageNumber = 1;
+            }
             // Get page related info
             var pageInfo = new PageInfo
             {
@@ -27,8 +31,11 @@ namespace NextechDemo.Application.Helper
             };
             var pageCount = (double)pageInfo.TotalCount / pageParams.PageSize;
             pageInfo.TotalPages = (int)Math.Ceiling(pageCount);
+
+           
             //Get no of pages to be skipped
             var skip = (pageParams.PageNumber - 1) * pageParams.PageSize;
+            
             return new Response<List<T>>
             {
                 IsSuccess = true,
